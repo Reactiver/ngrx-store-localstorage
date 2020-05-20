@@ -6,9 +6,6 @@ const detectDate = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/;
 
 // correctly parse dates from local storage
 export const dateReviver = (key: string, value: any) => {
-  if (typeof value === 'string' && detectDate.test(value)) {
-    return new Date(value);
-  }
   return value;
 };
 
@@ -220,7 +217,7 @@ export const syncStateUpdate = (
 };
 
 // Default merge strategy is a full deep merge.
-export const defaultMergeReducer = (state: any, rehydratedState: any, action: any) => { 
+export const defaultMergeReducer = (state: any, rehydratedState: any, action: any) => {
 
   if ((action.type === INIT_ACTION || action.type === UPDATE_ACTION) && rehydratedState) {
     const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
@@ -282,7 +279,7 @@ export const localStorageSync = (config: LocalStorageConfig) => (
     // Merge the store state with the rehydrated state using
     // either a user-defined reducer or the default.
     nextState = mergeReducer(nextState, rehydratedState, action);
-  
+
     nextState = reducer(nextState, action);
 
     if (action.type !== INIT_ACTION) {
